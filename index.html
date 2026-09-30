@@ -1,138 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>My Little Garden 🌷</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
 
-    <div class="garden">
+    <main class="garden">
 
-        <!-- SKY -->
+        <!-- =========================
+             SKY
+        ========================== -->
 
-        <div class="sky">
+        <section class="sky">
+
+            <div class="sun">☀️</div>
 
             <div class="cloud cloud-one">☁️</div>
             <div class="cloud cloud-two">☁️</div>
             <div class="cloud cloud-three">☁️</div>
 
-            <div class="sun">☀️</div>
 
             <div class="intro">
-                <h1>my little garden 🌷</h1>
-                <p>click around. you might find some secrets.</p>
+
+                <h1>
+                    my little garden 🌷
+                </h1>
+
+                <p>
+                    click around. you might find some secrets
+                </p>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <!-- GRASS -->
+        <!-- =========================
+             GRASS / GARDEN
+        ========================== -->
 
-        <div class="grass">
+        <section class="grass">
 
 
-            <!-- FLOWERS / OBJECTS -->
+            <!-- TULIP -->
 
             <button
-                class="garden-item flower-one"
-                data-message="Chickenpox hehe. If you know, you know!">
+                class="garden-item tulip"
+                data-message="yippie chickenpox creation"
+                aria-label="Tulip"
+            >
                 🌷
             </button>
 
 
+            <!-- CHICK -->
+
             <button
-                class="garden-item flower-two"
-                data-message="Hey birdie, I'll take care of you">
+                class="garden-item chick"
+                data-message="hey little birdie, i'll take care of you"
+                aria-label="Chick"
+            >
                 🐣
             </button>
 
 
+            <!-- SUNFLOWER -->
+
             <button
-                class="garden-item flower-three"
-                data-message="Sunflowers are my favorite. They always look on the bright side.">
+                class="garden-item sunflower"
+                data-message="sunflowers are my favourite."
+                aria-label="Sunflower"
+            >
                 🌻
             </button>
 
 
+            <!-- MUSHROOM -->
+
             <button
                 class="garden-item mushroom"
-                data-message="You've made it through every weird little day so far.">
+                data-message="i like mushrooms"
+                aria-label="Mushroom"
+            >
                 🍄
             </button>
 
 
+            <!-- SNAIL -->
+
             <button
                 class="garden-item snail"
-                data-message="Slow is still moving.">
+                data-message="slow is still moving."
+                aria-label="Snail"
+            >
                 🐌
             </button>
 
 
+            <!-- BUTTERFLY -->
+
             <button
                 class="garden-item butterfly"
-                data-message="Don't be afraid to spread your wings. or your armpits. ">
+                data-message="spread your wings, and armpits"
+                aria-label="Butterfly"
+            >
                 🦋
             </button>
 
 
+            <!-- BEE -->
+
             <button
                 class="garden-item bee"
-                data-message="I got stung by a bee. Not once, but twice">
+                data-message="bzz bzz. i got stung by a bee, not once but twice"
+                aria-label="Bee"
+            >
                 🐝
             </button>
 
 
+            <!-- ROCK -->
+
             <button
                 class="garden-item rock"
-                data-message="Sometimes I sit on rocks till my butt burns">
+                data-message="sometimes i sit on rocks until my butt gets hot"
+                aria-label="Rock"
+            >
                 🪨
             </button>
 
 
-            <!-- SECRET FROG -->
+            <!-- SECRET FLOWER -->
 
             <button
-                class="garden-item frog"
-                id="frog">
-                🐸
-            </button>
-
-
-        </div>
-
-
-        <!-- QUOTE POPUP -->
-
-        <div class="quote-card" id="quoteCard">
-
-            <button class="close-button" id="closeButton">
-                ×
-            </button>
-
-            <div class="quote-flower">
+                class="garden-item secret-flower"
+                data-message="you found a tiny secret 🌼"
+                aria-label="Secret flower"
+            >
                 🌼
+            </button>
+
+
+            <!-- EXTRA DECORATIONS -->
+
+            <span class="decoration tiny-flower-one">
+                🌸
+            </span>
+
+            <span class="decoration tiny-flower-two">
+                🌼
+            </span>
+
+            <span class="decoration plant-one">
+                🌱
+            </span>
+
+            <span class="decoration plant-two">
+                🌿
+            </span>
+
+        </section>
+
+
+        <!-- =========================
+             QUOTE POPUP
+        ========================== -->
+
+        <div
+            class="overlay"
+            id="overlay"
+        >
+
+            <div
+                class="quote-card"
+                id="quoteCard"
+            >
+
+                <button
+                    class="close-button"
+                    id="closeButton"
+                    aria-label="Close message"
+                >
+                    
+                </button>
+
+
+                <div class="quote-icon">
+                    🌷
+                </div>
+
+
+                <p id="quoteText"></p>
+
             </div>
 
-            <p id="quoteText"></p>
-
         </div>
 
 
-        <!-- LITTLE FOOTER -->
+        <!-- =========================
+             FOOTER
+        ========================== -->
 
-        <div class="garden-footer">
+        <footer>
             made with love ♡ by chickenpox
-        </div>
+        </footer>
 
-    </div>
+    </main>
 
 
     <script src="script.js"></script>
 
 </body>
+
 </html>

@@ -1,11 +1,17 @@
-/* ------------------------------
-   BASIC PAGE
--------------------------------- */
+/* =========================================
+   RESET
+========================================= */
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -14,83 +20,116 @@ body {
 }
 
 
-/* ------------------------------
-   GARDEN
--------------------------------- */
+/* =========================================
+   WHOLE GARDEN
+========================================= */
 
 .garden {
     position: relative;
+
     width: 100vw;
     height: 100vh;
+    height: 100svh;
+
+    min-height: 550px;
+
     overflow: hidden;
+
+    background: #dff4ff;
 }
 
 
-/* ------------------------------
+/* =========================================
    SKY
--------------------------------- */
+========================================= */
 
 .sky {
     position: absolute;
-    width: 100%;
-    height: 60%;
+
     top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 58%;
 
     background: linear-gradient(
         to bottom,
-        #bde7ff,
-        #e8f7ff
+        #bfe8ff 0%,
+        #e9f8ff 100%
     );
+
+    z-index: 1;
+
+    /* stops sky blocking clicks */
+    pointer-events: none;
 }
 
 
-/* ------------------------------
+/* =========================================
    TITLE
--------------------------------- */
+========================================= */
 
 .intro {
     position: absolute;
-    top: 13%;
+
+    top: 25%;
     left: 50%;
+
     transform: translateX(-50%);
 
-    text-align: center;
-    color: #4c5f48;
-
     width: 90%;
+
+    text-align: center;
+
+    color: #40573c;
+
+    z-index: 5;
 }
 
 .intro h1 {
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(2.4rem, 6vw, 5rem);
+
     font-weight: normal;
-    letter-spacing: 2px;
+
+    letter-spacing: 1px;
 }
 
 .intro p {
-    margin-top: 12px;
-    font-size: 1rem;
+    margin-top: 15px;
+
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+
     font-style: italic;
-    opacity: 0.75;
+
+    color: #657561;
 }
 
 
-/* ------------------------------
+/* =========================================
    SUN
--------------------------------- */
+========================================= */
 
 .sun {
     position: absolute;
-    top: 7%;
-    right: 8%;
 
-    font-size: 70px;
+    top: 8%;
+    right: 9%;
 
-    animation: sunFloat 5s ease-in-out infinite;
+    font-size: clamp(50px, 6vw, 80px);
+
+    z-index: 2;
+
+    animation:
+        sunFloat
+        5s
+        ease-in-out
+        infinite;
 }
 
 @keyframes sunFloat {
 
-    0%, 100% {
+    0%,
+    100% {
         transform: translateY(0);
     }
 
@@ -100,40 +139,47 @@ body {
 }
 
 
-/* ------------------------------
+/* =========================================
    CLOUDS
--------------------------------- */
+========================================= */
 
 .cloud {
     position: absolute;
 
-    font-size: 80px;
+    left: -150px;
 
-    opacity: 0.8;
+    font-size: clamp(55px, 7vw, 90px);
 
-    animation: cloudFloat 25s linear infinite;
+    opacity: 0.85;
+
+    z-index: 2;
+
+    animation:
+        cloudMove
+        28s
+        linear
+        infinite;
 }
 
 .cloud-one {
-    top: 8%;
-    left: -10%;
+    top: 5%;
 }
 
 .cloud-two {
     top: 30%;
-    left: -30%;
 
     animation-delay: 8s;
+    animation-duration: 35s;
 }
 
 .cloud-three {
-    top: 18%;
-    left: -50%;
+    top: 17%;
 
-    animation-delay: 15s;
+    animation-delay: 16s;
+    animation-duration: 40s;
 }
 
-@keyframes cloudFloat {
+@keyframes cloudMove {
 
     from {
         transform: translateX(0);
@@ -145,13 +191,14 @@ body {
 }
 
 
-/* ------------------------------
+/* =========================================
    GRASS
--------------------------------- */
+========================================= */
 
 .grass {
     position: absolute;
 
+    left: 0;
     bottom: 0;
 
     width: 100%;
@@ -159,306 +206,772 @@ body {
 
     background: linear-gradient(
         to bottom,
-        #a9d18e,
-        #7fab6d
+        #acd58e,
+        #82b36c
     );
 
-    border-radius: 50% 50% 0 0 / 10% 10% 0 0;
+    border-radius:
+        50% 50% 0 0 /
+        8% 8% 0 0;
+
+    z-index: 5;
+
+    /*
+    The grass itself does not receive clicks.
+    The individual garden items below do.
+    */
+    pointer-events: none;
 }
 
 
-/* ------------------------------
-   GARDEN ITEMS
--------------------------------- */
+/* =========================================
+   ALL CLICKABLE ITEMS
+========================================= */
 
 .garden-item {
-
     position: absolute;
 
-    background: none;
-    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    font-size: clamp(45px, 6vw, 75px);
+    width: 80px;
+    height: 80px;
+
+    padding: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 65px;
+    line-height: 1;
 
     cursor: pointer;
 
-    transition:
-        transform 0.3s ease,
-        filter 0.3s ease;
+    z-index: 50;
 
-    animation: gentleSway 3s ease-in-out infinite;
+    /* IMPORTANT */
+    pointer-events: auto;
+
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
 }
 
+
+/* Desktop hover */
 
 .garden-item:hover {
-
-    transform: scale(1.2);
-
-    filter: drop-shadow(
-        0 8px 5px rgba(0,0,0,0.15)
-    );
+    filter:
+        drop-shadow(
+            0 8px 5px
+            rgba(0, 0, 0, 0.15)
+        );
 }
 
 
-@keyframes gentleSway {
+/* When clicked */
 
-    0%, 100% {
-        transform: rotate(-2deg);
+.garden-item:active {
+    filter:
+        drop-shadow(
+            0 4px 3px
+            rgba(0, 0, 0, 0.15)
+        );
+}
+
+
+/* =========================================
+   DESKTOP POSITIONS
+========================================= */
+
+.tulip {
+    left: 7%;
+    bottom: 24%;
+
+    animation:
+        sway
+        3s
+        ease-in-out
+        infinite;
+}
+
+
+.chick {
+    left: 19%;
+    bottom: 7%;
+
+    animation:
+        bounce
+        3s
+        ease-in-out
+        infinite;
+}
+
+
+.sunflower {
+    left: 31%;
+    bottom: 48%;
+
+    animation:
+        sway
+        3.5s
+        ease-in-out
+        infinite;
+}
+
+
+.mushroom {
+    left: 43%;
+    bottom: 15%;
+
+    animation:
+        sway
+        4s
+        ease-in-out
+        infinite;
+}
+
+
+.snail {
+    left: 55%;
+    bottom: 38%;
+
+    animation:
+        sway
+        4s
+        ease-in-out
+        infinite;
+}
+
+
+.butterfly {
+    left: 67%;
+    bottom: 63%;
+
+    animation:
+        butterflyFloat
+        4s
+        ease-in-out
+        infinite;
+}
+
+
+.bee {
+    left: 78%;
+    bottom: 32%;
+
+    animation:
+        beeFloat
+        2.5s
+        ease-in-out
+        infinite;
+}
+
+
+.rock {
+    left: 88%;
+    bottom: 8%;
+
+    animation:
+        rockSway
+        5s
+        ease-in-out
+        infinite;
+}
+
+
+.secret-flower {
+    left: 48%;
+    bottom: 2%;
+
+    font-size: 45px;
+
+    animation:
+        sway
+        3s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================
+   DECORATIONS
+========================================= */
+
+.decoration {
+    position: absolute;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    z-index: 10;
+}
+
+
+.tiny-flower-one {
+    left: 14%;
+    bottom: 2%;
+
+    font-size: 32px;
+}
+
+
+.tiny-flower-two {
+    right: 17%;
+    bottom: 5%;
+
+    font-size: 30px;
+}
+
+
+.plant-one {
+    left: 37%;
+    bottom: 3%;
+
+    font-size: 30px;
+}
+
+
+.plant-two {
+    right: 5%;
+    bottom: 32%;
+
+    font-size: 35px;
+}
+
+
+/* =========================================
+   ITEM ANIMATIONS
+========================================= */
+
+@keyframes sway {
+
+    0%,
+    100% {
+        transform: rotate(-3deg);
     }
 
     50% {
-        transform: rotate(3deg);
+        transform: rotate(4deg);
     }
 }
 
 
-/* ------------------------------
-   ITEM POSITIONS
--------------------------------- */
+@keyframes bounce {
 
-.flower-one {
-    left: 8%;
-    bottom: 18%;
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
 }
 
-.flower-two {
-    left: 23%;
-    bottom: 55%;
-}
-
-.flower-three {
-    left: 42%;
-    bottom: 20%;
-}
-
-.mushroom {
-    left: 63%;
-    bottom: 48%;
-}
-
-.snail {
-    left: 78%;
-    bottom: 15%;
-}
-
-.butterfly {
-    left: 53%;
-    bottom: 75%;
-
-    animation: butterflyFloat 4s ease-in-out infinite;
-}
-
-.bee {
-    left: 88%;
-    bottom: 65%;
-
-    animation: beeFloat 2s ease-in-out infinite;
-}
-
-.rock {
-    left: 30%;
-    bottom: 5%;
-}
-
-.frog {
-    left: 70%;
-    bottom: 4%;
-
-    font-size: 40px;
-}
-
-
-/* ------------------------------
-   BUTTERFLY
--------------------------------- */
 
 @keyframes butterflyFloat {
 
-    0%, 100% {
-        transform: translate(0,0);
+    0%,
+    100% {
+        transform:
+            translate(0, 0)
+            rotate(-3deg);
     }
 
     25% {
-        transform: translate(15px,-15px);
+        transform:
+            translate(12px, -15px)
+            rotate(3deg);
     }
 
     50% {
-        transform: translate(25px,5px);
+        transform:
+            translate(22px, 3px)
+            rotate(-2deg);
     }
 
     75% {
-        transform: translate(-10px,-10px);
+        transform:
+            translate(-8px, -10px)
+            rotate(3deg);
     }
 }
 
-
-/* ------------------------------
-   BEE
--------------------------------- */
 
 @keyframes beeFloat {
 
-    0%, 100% {
-        transform: translate(0,0);
+    0%,
+    100% {
+        transform: translate(0, 0);
     }
 
     50% {
-        transform: translate(20px,-15px);
+        transform: translate(18px, -12px);
     }
 }
 
 
-/* ------------------------------
-   QUOTE CARD
--------------------------------- */
+@keyframes rockSway {
 
-.quote-card {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
 
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+
+/* =========================================
+   POPUP OVERLAY
+========================================= */
+
+.overlay {
     position: fixed;
 
-    top: 50%;
-    left: 50%;
+    inset: 0;
 
-    transform:
-        translate(-50%, -50%)
-        scale(0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    width: min(380px, 85vw);
+    padding: 20px;
+
+    background:
+        rgba(49, 68, 44, 0.2);
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+
+    z-index: 9999;
+}
+
+
+/* This appears after JavaScript adds "show" */
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================
+   QUOTE CARD
+========================================= */
+
+.quote-card {
+    position: relative;
+
+    width: min(400px, 90vw);
 
     padding:
         50px
         35px
-        35px;
+        40px;
 
-    background: #fffdf7;
+    background: #fffdf6;
+
+    border:
+        2px solid
+        rgba(108, 132, 91, 0.25);
 
     border-radius: 25px;
 
     box-shadow:
         0 20px 60px
-        rgba(50,70,40,0.25);
+        rgba(42, 60, 35, 0.25);
 
     text-align: center;
 
-    opacity: 0;
-
-    pointer-events: none;
+    transform:
+        translateY(15px)
+        scale(0.9);
 
     transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
+        transform 0.25s ease;
+}
+
+
+.overlay.show .quote-card {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+.quote-icon {
+    margin-bottom: 15px;
+
+    font-size: 40px;
+}
+
+
+.quote-card p {
+    color: #4e6148;
+
+    font-size: 1.25rem;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.close-button {
+    position: absolute;
+
+    top: 10px;
+    right: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #70806b;
+
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    position: absolute;
+
+    left: 50%;
+    bottom: 15px;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+
+    padding: 0 20px;
+
+    text-align: center;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.9
+        );
+
+    font-size: 14px;
+
+    pointer-events: none;
 
     z-index: 100;
 }
 
 
-/* when opened */
-
-.quote-card.show {
-
-    opacity: 1;
-
-    pointer-events: auto;
-
-    transform:
-        translate(-50%, -50%)
-        scale(1);
-}
-
-
-.quote-card p {
-
-    font-size: 1.3rem;
-
-    line-height: 1.7;
-
-    color: #52634c;
-}
-
-
-/* little flower */
-
-.quote-flower {
-
-    font-size: 40px;
-
-    margin-bottom: 15px;
-}
-
-
-/* ------------------------------
-   CLOSE BUTTON
--------------------------------- */
-
-.close-button {
-
-    position: absolute;
-
-    top: 12px;
-    right: 18px;
-
-    background: none;
-
-    border: none;
-
-    font-size: 28px;
-
-    color: #8c9b84;
-
-    cursor: pointer;
-}
-
-
-/* ------------------------------
-   FOOTER
--------------------------------- */
-
-.garden-footer {
-
-    position: absolute;
-
-    bottom: 15px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    color: rgba(255,255,255,0.75);
-
-    font-size: 13px;
-
-    z-index: 5;
-}
-
-
-/* ------------------------------
+/* =========================================
    MOBILE
--------------------------------- */
+========================================= */
 
 @media (max-width: 600px) {
 
-    .intro {
-        top: 10%;
+    /* Whole page */
+
+    .garden {
+        min-height: 550px;
     }
+
+
+    /* Sky */
+
+    .sky {
+        height: 54%;
+    }
+
+
+    /* Title */
+
+    .intro {
+        top: 24%;
+
+        width: 94%;
+
+        padding: 0 12px;
+    }
+
 
     .intro h1 {
-        font-size: 2.3rem;
+        font-size: clamp(
+            2rem,
+            10vw,
+            3rem
+        );
+
+        line-height: 1.1;
     }
 
-    .cloud {
-        font-size: 60px;
+
+    .intro p {
+        max-width: 310px;
+
+        margin:
+            12px
+            auto
+            0;
+
+        font-size: 0.9rem;
+
+        line-height: 1.5;
     }
+
+
+    /* Sun */
 
     .sun {
-        font-size: 55px;
-    }
+        top: 5%;
+        right: 7%;
 
-    .garden-item {
         font-size: 48px;
     }
 
-    .frog {
-        font-size: 35px;
+
+    /* Clouds */
+
+    .cloud {
+        font-size: 50px;
     }
 
+
+    .cloud-one {
+        top: 3%;
+    }
+
+
+    .cloud-two {
+        top: 30%;
+    }
+
+
+    .cloud-three {
+        top: 15%;
+    }
+
+
+    /* Grass */
+
+    .grass {
+        height: 53%;
+    }
+
+
+    /* Icons */
+
+    .garden-item {
+        width: 58px;
+        height: 58px;
+
+        font-size: 44px;
+    }
+
+
+    /*
+       MOBILE ICON POSITIONS
+
+       Change these later if you want
+       to move individual objects.
+    */
+
+
+    .tulip {
+        left: 3%;
+        bottom: 58%;
+    }
+
+
+    .chick {
+        left: 17%;
+        bottom: 20%;
+    }
+
+
+    .sunflower {
+        left: 31%;
+        bottom: 61%;
+    }
+
+
+    .mushroom {
+        left: 42%;
+        bottom: 25%;
+    }
+
+
+    .snail {
+        left: 54%;
+        bottom: 50%;
+    }
+
+
+    .butterfly {
+        left: 66%;
+        bottom: 70%;
+    }
+
+
+    .bee {
+        left: 75%;
+        bottom: 34%;
+    }
+
+
+    .rock {
+        left: auto;
+        right: 1%;
+
+        bottom: 8%;
+    }
+
+
+    .secret-flower {
+        left: 43%;
+        bottom: 1%;
+
+        font-size: 34px;
+    }
+
+
+    /* Decorative plants */
+
+    .tiny-flower-one {
+        left: 4%;
+        bottom: 3%;
+
+        font-size: 25px;
+    }
+
+
+    .tiny-flower-two {
+        right: 20%;
+        bottom: 4%;
+
+        font-size: 25px;
+    }
+
+
+    .plant-one {
+        left: 30%;
+        bottom: 2%;
+
+        font-size: 24px;
+    }
+
+
+    .plant-two {
+        right: 2%;
+        bottom: 56%;
+
+        font-size: 27px;
+    }
+
+
+    /* Quote */
+
+    .quote-card {
+        width: 88vw;
+
+        padding:
+            45px
+            25px
+            32px;
+
+        border-radius: 20px;
+    }
+
+
+    .quote-card p {
+        font-size: 1.05rem;
+    }
+
+
+    .quote-icon {
+        font-size: 36px;
+    }
+
+
+    /* Footer */
+
+    footer {
+        bottom: 9px;
+
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .intro {
+        top: 22%;
+    }
+
+
+    .intro h1 {
+        font-size: 1.9rem;
+    }
+
+
+    .intro p {
+        font-size: 0.82rem;
+    }
+
+
+    .garden-item {
+        width: 52px;
+        height: 52px;
+
+        font-size: 39px;
+    }
+
+
+    .secret-flower {
+        font-size: 31px;
+    }
 }

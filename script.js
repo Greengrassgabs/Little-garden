@@ -1,124 +1,67 @@
-/* ------------------------------
-   GET ELEMENTS
--------------------------------- */
+document.addEventListener("DOMContentLoaded", function () {
 
-const gardenItems =
-    document.querySelectorAll(".garden-item");
+    const gardenItems = document.querySelectorAll(".garden-item");
+    const overlay = document.getElementById("overlay");
+    const quoteText = document.getElementById("quoteText");
+    const closeButton = document.getElementById("closeButton");
 
-const quoteCard =
-    document.getElementById("quoteCard");
-
-const quoteText =
-    document.getElementById("quoteText");
-
-const closeButton =
-    document.getElementById("closeButton");
-
-const frog =
-    document.getElementById("frog");
+    console.log("Garden loaded!");
+    console.log("Clickable items found:", gardenItems.length);
 
 
-/* ------------------------------
-   NORMAL GARDEN ITEMS
--------------------------------- */
+    // CLICK GARDEN ITEMS
 
-gardenItems.forEach(item => {
+    gardenItems.forEach(function (item) {
 
-    item.addEventListener("click", () => {
+        item.addEventListener("click", function (event) {
 
-        /* frog has its own behaviour */
+            event.stopPropagation();
 
-        if (item.id === "frog") {
-            return;
-        }
+            const message = item.getAttribute("data-message");
 
-        const message =
-            item.getAttribute("data-message");
+            console.log("Clicked!", message);
 
-        showQuote(message);
+            quoteText.textContent = message;
+
+            overlay.classList.add("show");
+
+        });
 
     });
 
-});
+
+    // CLOSE BUTTON
+
+    closeButton.addEventListener("click", function () {
+
+        overlay.classList.remove("show");
+
+    });
 
 
-/* ------------------------------
-   SHOW QUOTE
--------------------------------- */
+    // CLICK OUTSIDE CARD
 
-function showQuote(message) {
+    overlay.addEventListener("click", function (event) {
 
-    quoteText.textContent = message;
+        if (event.target === overlay) {
 
-    quoteCard.classList.add("show");
+            overlay.classList.remove("show");
 
-}
+        }
 
-
-/* ------------------------------
-   CLOSE QUOTE
--------------------------------- */
-
-closeButton.addEventListener("click", () => {
-
-    quoteCard.classList.remove("show");
-
-});
+    });
 
 
-/* ------------------------------
-   ESCAPE KEY CLOSES QUOTE
--------------------------------- */
+    // ESCAPE KEY
 
-document.addEventListener("keydown", event => {
+    document.addEventListener("keydown", function (event) {
 
-    if (event.key === "Escape") {
+        if (event.key === "Escape") {
 
-        quoteCard.classList.remove("show");
+            overlay.classList.remove("show");
 
-    }
+        }
 
-});
-
-
-/* ------------------------------
-   SECRET FROG
--------------------------------- */
-
-let frogClicks = 0;
-
-
-const frogMessages = [
-
-    "oh. you found me.",
-
-    "hello 🐸",
-
-    "why are you still clicking me",
-
-    "there are literally flowers everywhere",
-
-    "please go look at the flowers 😭",
-
-    "seriously.",
-
-    "fine. i like you too."
-
-];
-
-
-frog.addEventListener("click", () => {
-
-    const message =
-        frogMessages[
-            Math.min(
-                frogClicks,
-                frogMessages.length - 1
-            )
-        ];
-
-    showQuote(message);
-
-    frogClicks++;
+    });
 
 });
